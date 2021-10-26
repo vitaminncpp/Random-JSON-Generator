@@ -2,7 +2,7 @@ package com.json;
 
 import java.util.Random;
 
-public class JSONInt implements JSONObject,JSONKey{
+public class JSONInt implements JSONObject{
     private int value;
 
     public JSONInt(int value){
@@ -11,7 +11,7 @@ public class JSONInt implements JSONObject,JSONKey{
 
     @Override
     public String toString(){
-        return "\""+this.value+"\"";
+        return ""+this.value;
     }
 
     /**
