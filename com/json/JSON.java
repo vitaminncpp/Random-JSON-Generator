@@ -1,5 +1,6 @@
 package com.json;
 
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
@@ -139,7 +140,117 @@ public class JSON implements JSONObject {
     }
 
     public static String formatJSON(String json) {
+        int indentLevel = 0;
+        int CurlyBrace = 0;
+        int sqrBrace = 0;
 
-        return null;
+        int len = json.length();
+        int tmp = 0;
+        String out = "";
+        boolean codeState = true;
+        char ch = 0;
+        for (int i = 0; i < len; i++) {
+            ch = json.charAt(i);
+            if (codeState) {
+                switch (ch) {
+                case '"':
+                    codeState = false;
+                    out += ch;
+                    break;
+                case '{':
+                    
+                    out+='\n';
+                    tmp = 0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    out += ch;
+                    out += '\n';
+                    indentLevel++;
+                    CurlyBrace++;
+                    tmp = 0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    break;
+                case '[':
+                    
+                    out+='\n';
+                    tmp = 0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    out += ch;
+                    out += '\n';
+                    indentLevel++;
+                    sqrBrace++;
+                    tmp = 0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    break;
+                case ',':
+                    out += ch;
+                    out+='\n';
+                    tmp = 0;
+
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    break;
+                case '}':
+                indentLevel--;
+                CurlyBrace--;
+                    out += '\n';
+                    tmp = 0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    out += ch;
+                    out += '\n';
+                    
+                    tmp = 0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    break;
+                case ']':
+                indentLevel--;
+                sqrBrace--;
+                    out += "\n";
+                    tmp=0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    out += ch;
+                    out += '\n';
+                    
+                    tmp = 0;
+                    while (tmp < indentLevel) {
+                        out += "    ";
+                        tmp++;
+                    }
+                    break;
+                default:
+                    out += ch;
+                    break;
+                }
+            } else {
+                if (ch == '"') {
+                    codeState = true;
+                }
+                out += ch;
+            }
+        }
+
+        return out;
     }
 }
