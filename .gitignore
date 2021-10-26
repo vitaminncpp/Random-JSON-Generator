@@ -1,0 +1,10 @@
+# compiled binariies
+*.class
+*.jar
+
+#directories
+dit/**
+dist/**
+classes/**
+bin/**
+target/**
